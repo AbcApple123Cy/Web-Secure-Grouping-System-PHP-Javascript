@@ -1,0 +1,48 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^about$ about.php [L]
+</IfModule>
+
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
+
+<Files "apache_server_info.php">
+Deny from all
+</Files>
+
+<IfModule mod_headers.c>
+  Header always append X-Frame-Options SAMEORIGIN
+Header set Content-Security-Policy "default-src 'self'; script-src 'self' https://trustedcdn.example.com; style-src 'self'; frame-ancestors 'self'; form-action 'self';"
+Header set Content-Security-Policy "frame-ancestors 'self' https://cyrusgroupingsystem.buzz;"
+Header set Content-Security-Policy "form-action 'self' https://cyrusgroupingsystem.buzz/;"
+
+</IfModule>
+
+
+
+<FilesMatch "^apache_server_info$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    Header unset X-Powered-By
+</IfModule>
+
+
+
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+<IfModule mod_headers.c>
+Header set Content-Security-Policy " \
+    default-src 'none'; \
+    img-src 'self' data:; \
+"
+</IfModule>
